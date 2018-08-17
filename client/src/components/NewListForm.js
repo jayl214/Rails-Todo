@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 
 class NewListForm extends Component {
 
+
   render () {
+    const newListStyle={
+      width: '30%'
+    }
     return (
       <input  onKeyUp={this.props.addNewList}
               type="text"
-              placeholder="List Name" required />
+              placeholder="New Todo" required
+              style={newListStyle}
+               />
+
 
     )
   }

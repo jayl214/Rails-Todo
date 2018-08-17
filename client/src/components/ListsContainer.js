@@ -4,6 +4,11 @@ import axios from 'axios';
 import List from './List';
 import NewListForm from './NewListForm';
 import EditListForm from './EditListForm';
+import Foundation from 'react-foundation';
+
+
+
+
 
 
 class ListsContainer extends Component {
@@ -53,7 +58,6 @@ class ListsContainer extends Component {
     }
 
     editingList = id => {
-      console.log('editing')
       this.setState({
         editingListId: id
       })
@@ -69,26 +73,40 @@ class ListsContainer extends Component {
       .catch(error => console.log(error));
     }
 
+    cancelEdit = () => {
+      console.log('test')
+      this.setState({editingListId: null})
+    }
+
     render() {
+        const listContainerStyle = {
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingTop: '2%'
+        }
         return (
-            <div>
-              <div className="Lists-container">
+            <div style={listContainerStyle}>
+              <div >
                 {this.state.lists.map( list => {
                   if ( this.state.editingListId === list.id ) {
                     return (<EditListForm
                               list={list}
                               key={list.id}
-                              editList={this.editList}/>)
+                              editList={this.editList}
+                              cancelEdit={this.cancelEdit}/>)
                   }else {
                     return (<List
                               list={list}
                               key={list.id}
                               onRemoveList={this.removeList}
-                              editingList={this.editingList} />)
+                              editingList={this.editingList}/>)
                   }
                 })}
               </div>
               <NewListForm addNewList={this.addNewList} />
+
             </div>
         )
     }

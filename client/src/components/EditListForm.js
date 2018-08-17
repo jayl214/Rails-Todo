@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 
 class EditListForm extends Component {
 
+  componentDidMount(){
+    this.editInput.focus()
+  }
+
   state = {
       id: this.props.list.id,
       title: this.props.list.title,
       excerpt: this.props.list.excerpt
-  }
-
-  handleChange = (e) => {
-      this.setState({[e.target.name]: e.target.value})
   }
 
   handleSubmit = (e) => {
@@ -20,10 +20,12 @@ class EditListForm extends Component {
   }
   render(){
     return(
-      <input  name="title"
+      <input  ref={(input) => { this.editInput = input }}
+              name="title"
               type="text"
-              placeholder="Title..."
-              onKeyUp={this.handleSubmit}/>
+              placeholder="Edit Todo"
+              onKeyUp={this.handleSubmit}
+              onBlur={this.props.cancelEdit}/>
     )
   }
 }
